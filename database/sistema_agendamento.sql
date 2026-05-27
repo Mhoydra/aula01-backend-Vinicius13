@@ -1,5 +1,6 @@
 CREATE DATABASE sistema_agendamento;
 USE sistema_agendamento;
+-- SELECT * FROM sistema_agendamento;
 
 CREATE TABLE usuarios(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -8,6 +9,7 @@ CREATE TABLE usuarios(
     senhaUsuario VARCHAR(100),
     dataUsuario TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+-- SELECT * FROM usuarios;
 -- DROP TABLE usuarios;
 
 CREATE TABLE servicos(
@@ -24,11 +26,10 @@ CREATE TABLE categorias(
     FKidServico INT NOT NULL,
     FOREIGN KEY (FKidServico) REFERENCES servicos(idServico)
 );
+-- SELECT * FROM categorias;
 -- DROP TABLE categorias;
 
 CREATE TABLE agendamentos(
-	idUsuario INT NOT NULL,
-    idServico INT NOT NULL,	
 	idAgendamento INT PRIMARY KEY AUTO_INCREMENT,
     nomeAgendamento VARCHAR(100) NOT NULL ,
     dataAgendamento TIMESTAMP NOT NULL  DEFAULT CURRENT_TIMESTAMP,
@@ -38,6 +39,7 @@ CREATE TABLE agendamentos(
     FOREIGN KEY (FKidUsuario) REFERENCES usuarios(idUsuario),
     FOREIGN KEY (FKidServico) REFERENCES servicos(idServico) 
 );
+-- SELECT * FROM agendamentos;
 -- DROP TABLE agendamentos;
 
 CREATE TABLE profissionais(
@@ -45,29 +47,67 @@ CREATE TABLE profissionais(
     nomeProfissional VARCHAR(100) NOT NULL,
     dataProfissional TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+-- SELECT * FROM profissionais;
 -- DROP TABLE profissionais;
 
 CREATE TABLE servicosProfissionais(
-	idServico INT NOT NULL,
-    idProfissional INT NOT NULL,
 	PRIMARY KEY(idServico, IDProfissionaL),
 	FKidServico INT NOT NULL,
     FKidProfissionais INT NOT NULL,
     FOREIGN KEY (FKidServico) REFERENCES servicos(idServico),
     FOREIGN KEY (FKidProfissionais) REFERENCES profissionais(idProfissional)
 );
+-- SELECT * FROM servicosProfissionais;
 -- DROP TABLE profissionais;
 
-INSERT INTO usuarios(nomeUsuario,emailUsuario,senhaUusario) VALUES 
-("Herick Barone Freitas","BaraoDasProvincias@gmail.com",'3284576345'),
-("Gustavo Tavares Lopes","Trovao&Cerveja@gmail.com",'13478568234'),
-("Cristhoper Frederick Brascubas III","74782846287@senacrs.edu.br",'876235762345');
+ /*
+ 
+ALTER TABLE servicosProfissionais
+DROP COLUMN idProfissional;
 
-INSERT INTO servicos(nomeServico) VALUES 
-("Entrega"),("Compra"),("Revenda");
+ALTER TABLE usuarios ADD COLUMN senhaUsuario VARCHAR(100) NOT NULL;
 
-INSERT INTO categorias(nomeCategoria,FKidServico) VALUES 
+SELECT * 
+FROM usuarios
+WHERE nomeUsuario LIKE '%silva%';
+
+UPDATE servicos 
+SET preco = 19.90
+WHERE idServico IN (1,2,3);
+
+SELECT *
+FROM usuarios
+ORDER BY nomeUsuario ASC;
+
+SELECT *
+FROM usuarios
+WHERE nomeUsuario LIKE '%ao%'
+ORDER BY nomeUsuario ASC;
+
+INSERT INTO usuarios(nomeUsuario,emailUsuario,senhaUsuario) 
+VALUES 
+("Larie Macavo silva","BahiaJoséCarcaar@gmail.com",'326345'),
+("Sim Sou Silva","TroGLOjoana@gmail.com",'134hfjj4'),
+("Alexandre Moreno","774947@senacrs.edu.br",'8gjhhhy762345');
+
+INSERT INTO servicos(nomeServico,preco) 
+VALUES 
+("Hidratacao", 46.00),("Fazer Depilacao", 25.00),("coloracao de cabelo", 1.99);
+-- SELECT * FROM servicos;
+
+INSERT INTO categorias(nomeCategoria,FKidServico) 
+VALUES 
 ("Urgente",1),("Rapido",2),("Demorado",3);
+
+INSERT INTO agendamentos(FKidUsuario,FKidServico,nomeAgendamento) 
+VALUES 
+	(1,1,"agendamento para roraima"),
+	(2,2,"agendamento para o amapa"),
+	(3,3,"agendamento para o acre");
+
+*/
+
+-- criar INSERT INTO em servicosProfissionais e agendamentos
 
 -- criar INSERT INTO em servicosProfissionais e agendamentos
 
